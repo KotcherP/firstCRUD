@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import filmography.model.Film;
 import filmography.service.FilmService;
 import filmography.service.FilmServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,17 @@ import java.util.List;
 @Controller
 public class FilmController {
 
-    private FilmService filmService = new FilmServiceImpl();
+    private FilmService filmService;
+
+    //Аннотация @Autowired (автосвязывание) сообщает Spring о том, ч
+    // то он должен покопаться у себя в контексте и подставить сюда подходящий бин. Очень удобно.
+    // Если до этого мы использовали интерфейсы, чтобы не беспокоиться насчет конкретной реализации методов,
+    // то теперь нам не нужно беспокоиться даже насчет реализации самого интерфейса и даже знать ее название.
+    @Autowired
+    public void setFilmService(FilmService filmService) {
+        this.filmService = filmService;
+    }
+
     //Аннотация @RequestMapping позволяет задать адреса методам контроллера, по которым они будут доступны в клиенте (браузер).
     // Ее можно применять также и к классу контроллера, чтобы задать, так сказать, корневой адрес для всех методов.
     //Если только получаем данные, то используется GET.
