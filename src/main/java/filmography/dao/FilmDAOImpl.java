@@ -45,21 +45,28 @@ public class FilmDAOImpl implements FilmDAO {
     public void add(Film film) {
         //film.setId(AUTO_ID.getAndIncrement());
       //  films.put(film.getId(),film);
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(film);
     }
 
     @Override
     public void delete(Film film) {
        // films.remove(film.getId());
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(film);
     }
 
     @Override
     public void edit(Film film) {
      //   films.put(film.getId(),film);
+        Session session = sessionFactory.getCurrentSession();
+        session.update(film);
     }
 
     @Override
     public Film getById(int id) {
       //  return films.get(id);
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Film.class,id);
     }
 }
